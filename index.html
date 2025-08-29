@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#4CAF50">
+  <title>CB Score — Cricbuzz Style</title>
+
+  <!-- Manifest -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Add your CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<body>
+  <header>
+    <h1>CB Score — Cricbuzz Style</h1>
+    <div class="right">
+      <button id="newMatchBtn">New Match</button>
+    </div>
+  </header>
+
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="setup">Setup</button>
+    <button class="tab-btn" data-tab="live">Live</button>
+    <button class="tab-btn" data-tab="scorecard">Scorecard</button>
+    <button class="tab-btn" data-tab="commentary">Commentary</button>
+    <button class="tab-btn" data-tab="awards">Awards</button>
+  </div>
+
+  <main>
+    <!-- SETUP TAB -->
+    <section id="setup" class="card tab-section">
+      <h2>Match Setup</h2>
+      <div class="row">
+        <div class="col-6">
+          <div class="card">
+            <div class="stack">
+              <label>Team A Name</label>
+              <input id="teamAName" placeholder="Enter Team A" />
+              <label>Team B Name</label>
+              <input id="teamBName" placeholder="Enter Team B" />
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="stack">
+              <label>Toss Winner</label>
+              <select id="tossWinner">
+                <option value="A">Team A</option>
+                <option value="B">Team B</option>
+              </select>
+              <label>Toss Decision</label>
+              <select id="tossDecision">
+                <option value="bat">Bat</option>
+                <option value="bowl">Bowl</option>
+              </select>
+              <div class="meta">Which team will bat first is auto-set from toss.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="card">
+            <div class="stack">
+              <label>Opening Striker</label>
+              <input id="strikerName" placeholder="" />
+              <label>Opening Non-Striker</label>
+              <input id="nonStrikerName" placeholder="" />
+              <label>Opening Bowler</label>
+              <input id="bowlerName" placeholder="" />
+              <button class="btn" id="startMatch">Start Match</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIVE TAB -->
+    <section id="live" class="card tab-section hidden">
+      <div class="row">
+        <div class="col-6">
+          <div class="stack">
+            <div class="scoreline" id="scoreline">0/0 (0.0)</div>
+            <div class="meta" id="liveMeta">—</div>
+            <div class="meta"><span class="pill" id="inningsTag">1st Innings</span></div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="stack">
+            <div id="batsDisplay" class="meta">—</div>
+            <div id="bowlerDisplay" class="meta">—</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Controls</h3>
+        <div class="controls">
+  <button class="btn run" data-run="0">0</button>
+  <button class="btn run" data-run="1">1</button>
+  <button class="btn run" data-run="2">2</button>
+  <button class="btn run" data-run="3">3</button>
+  <button class="btn run" data-run="4">4</button>
+  <button class="btn run" data-run="6">6</button>
+  <button class="btn secondary" id="wicketBtn">Wicket</button>
+  <button class="btn ghost" id="wideBtn">Wide</button>
+  <button class="btn ghost" id="noBallBtn">No Ball</button>
+  <button class="btn ghost" id="strikeChangeBtn">Change Strike</button>
+  <button class="btn ghost" id="undoBtn">Undo</button>
+  <button class="btn ghost" id="endOverBtn">End Over</button>
+  <button class="btn ghost" id="endInningsBtn">End Innings</button>
+</div>
+      </div>
+    </section>
+
+    <!-- SCORECARD TAB -->
+    <section id="scorecard" class="card tab-section hidden">
+      <h3 id="scHeader">Scorecard</h3>
+      <div class="row">
+        <div class="col-6">
+          <div class="card">
+            <h4>Batting — <span id="battingTeamSC">—</span></h4>
+            <table id="battingTable">
+              <thead>
+                <tr><th>Batsman</th><th>R</th><th>B</th><th>4s</th><th>6s</th><th>SR</th></tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="card">
+            <h4>Bowling — <span id="bowlingTeamSC">—</span></h4>
+            <table id="bowlingTable">
+              <thead>
+                <tr><th>Bowler</th><th>O</th><th>M</th><th>R</th><th>W</th><th>Econ</th></tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMMENTARY TAB -->
+    <section id="commentary" class="card tab-section hidden">
+      <h3>Commentary</h3>
+      <ul class="commentary" id="comList"></ul>
+    </section>
+
+    <!-- AWARDS TAB -->
+    <section id="awards" class="card tab-section hidden">
+      <h3>Match Result & Awards</h3>
+      <div class="card">
+        <div id="resultLine" class="scoreline">—</div>
+        <div id="targetLine" class="meta">—</div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <div class="card">
+            <h4>Best Batsman</h4>
+            <div id="bestBat">—</div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="card">
+            <h4>Best Bowler</h4>
+            <div id="bestBowl">—</div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="card">
+            <h4>Best Fielder</h4>
+            <div id="bestField">—</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h4>Man of the Match</h4>
+        <div id="mom">—</div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(reg => console.log('Service Worker Registered', reg))
+        .catch(err => console.error('Service Worker Error', err));
+    }
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>
